@@ -120,32 +120,60 @@ Objective: Find the movie with the longest duration.\
 \
 **6. Find Content Added in the Last 5 Years**
 ```bash
-
+SELECT
+*
+FROM netflix
+WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
 ```
 Objective: Retrieve content added to Netflix in the last 5 years.\
 \
 **7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'**
 ```bash
-
+SELECT *
+FROM netflix
+WHERE director ILIKE '%Rajiv Chilaka%';
 ```
 Objective: List all content directed by 'Rajiv Chilaka'.\
 \
 **8. List All TV Shows with More Than 5 Seasons**
 ```bash
-
+SELECT *
+FROM netflix
+WHERE 
+	TYPE = 'TV Show'
+	AND
+	SPLIT_PART(duration, ' ', 1)::INT > 5;
 ```
 Objective: Identify TV shows with more than 5 seasons.\
 \
 **9. Count the Number of Content Items in Each Genre**
 ```bash
-
+SELECT 
+	UNNEST(STRING_TO_ARRAY(listed_in, ',')) as genre,
+	COUNT(*) as total_genre_count
+FROM netflix
+GROUP BY 1;
 ```
 Objective: Count the number of content items in each genre.\
 \
 **10.Find each year and the average numbers of content release in India on netflix.
 return top 5 year with highest avg content release!**
 ```bash
-
+SELECT 
+	country,
+	release_year,
+	COUNT(show_id) as total_release,
+	ROUND(
+		COUNT(show_id)::numeric/
+								(SELECT COUNT(show_id) FROM netflix WHERE country = 'India')::numeric * 100 
+		,2
+		)
+		as avg_release
+FROM netflix
+WHERE country = 'India' 
+GROUP BY country, 2
+ORDER BY avg_release DESC 
+LIMIT 5;
 ```
 Objective: Calculate and rank years by the average number of content releases by India.\
 \
