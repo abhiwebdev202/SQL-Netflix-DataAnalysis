@@ -179,31 +179,58 @@ Objective: Calculate and rank years by the average number of content releases by
 \
 **11. List All Movies that are Documentaries**
 ```bash
-
+SELECT * FROM netflix
+WHERE listed_in ILIKE '%documentaries';
 ```
 Objective: Retrieve all movies classified as documentaries.\
 \
 **12. Find All Content Without a Director**
 ```bash
-
+SELECT * FROM netflix
+WHERE director IS NULL;
 ```
 Objective: List content that does not have a director.\
 \
 **13. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years**
 ```bash
-
+SELECT * FROM netflix
+WHERE 
+	casts LIKE '%Salman Khan%'
+	AND 
+	release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;
 ```
 Objective: Count the number of movies featuring 'Salman Khan' in the last 10 years.\
 \
 **14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India**
 ```bash
-
+SELECT 
+	UNNEST(STRING_TO_ARRAY(casts, ',')) as actor,
+	COUNT(*)
+FROM netflix
+WHERE country = 'India'
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
 ```
 Objective: Identify the top 10 actors with the most appearances in Indian-produced movies.\
 \
 **15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords**
 ```bash
-
+SELECT 
+    category,
+	TYPE,
+    COUNT(*) AS content_count
+FROM (
+    SELECT 
+		*,
+        CASE 
+            WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
+            ELSE 'Good'
+        END AS category
+    FROM netflix
+) AS categorized_content
+GROUP BY 1,2
+ORDER BY 2;
 ```
 Objective: Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
