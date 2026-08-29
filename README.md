@@ -1,2 +1,46 @@
 **Data Analysis using SQL/Netflix Movies and TV Shows Data**
+
 ![Netflix_Logo](https://github.com/abhiwebdev202/SQL-Netflix-DataAnalysis/blob/main/images.jpeg)
+
+**Overview**
+This project involves a comprehensive analysis of Netflix's movies and TV shows data using SQL. The goal is to extract valuable insights and answer various business questions based on the dataset. The following README provides a detailed account of the project's objectives, business problems, solutions, findings, and conclusions.
+
+**Objectives**
+Analyze the distribution of content types (movies vs TV shows).
+Identify the most common ratings for movies and TV shows.
+List and analyze content based on release years, countries, and durations.
+Explore and categorize content based on specific criteria and keywords.
+
+**Dataset**
+The data for this project is sourced from the Kaggle dataset:
+Dataset LInk: https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download
+
+**Schema**
+
+```bash
+DROP TABLE IF EXISTS netflix;
+
+CREATE TABLE netflix (
+	show_id VARCHAR (10),
+	type VARCHAR (10),
+	title VARCHAR (150),
+	director VARCHAR (220),
+	casts VARCHAR (1000),
+	country VARCHAR (150),
+	date_added VARCHAR (50),
+	release_year INT,
+	rating VARCHAR (10),
+	duration VARCHAR (20),
+	listed_in VARCHAR (100),
+	description VARCHAR (250)
+);
+
+SELECT * FROM netflix
+LIMIT 10;
+
+SELECT count(*) as total_entries FROM netflix;
+
+SELECT
+	DISTINCT type
+FROM netflix;
+```
