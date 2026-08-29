@@ -45,7 +45,7 @@ SELECT
 FROM netflix;
 ```
 
-**Business Problems and Solutions**
+**Business Problems and Solutions**\
 **1. Count the Number of Movies vs TV Shows**
 Objective: Determine the distribution of content types on Netflix.
 **2. Find the Most Common Rating for Movies and TV Shows**
