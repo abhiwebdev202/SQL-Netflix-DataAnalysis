@@ -46,7 +46,7 @@ FROM netflix;
 ```
 
 **Business Problems and Solutions**\
-**1. Count the Number of Movies vs TV Shows**\
+**1. Count the Number of Movies vs TV Shows**
 ```bash
 SELECT 
 	type,
@@ -54,7 +54,7 @@ SELECT
 FROM netflix
 GROUP BY type;
 ```
-Objective: Determine the distribution of content types on Netflix.
+Objective: Determine the distribution of content types on Netflix.\
 **2. Find the Most Common Rating for Movies and TV Shows**
 Objective: Identify the most frequently occurring rating for each type of content.
 **3. List All Movies Released in a Specific Year (e.g., 2020)**
