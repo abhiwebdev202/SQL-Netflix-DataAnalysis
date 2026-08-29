@@ -84,7 +84,9 @@ Objective: Identify the most frequently occurring rating for each type of conten
 \
 **3. List All Movies Released in a Specific Year (e.g., 2020)**
 ```bash
-
+SELECT * 
+FROM netflix
+WHERE release_year = 2020
 ```
 Objective: Retrieve all movies released in a specific year.\
 \
